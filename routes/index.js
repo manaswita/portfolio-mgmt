@@ -7,7 +7,7 @@ var common = require("./common");
 var shares = require('../models/shares');
 
 router.get('/', (req, res) => {
-    res.render('index');
+    res.render('index.html');
 });
 
 /*router.get('/shares', (req, res) => {

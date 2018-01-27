@@ -15,7 +15,7 @@ passportObject.serializeUser(function(user, done) {
 var User = require('../models/user');
 
 router.get('/register', (req, res) => {
-    res.render('register');
+    res.render('register.html');
 });
 
 router.post('/register', (req, res) => {
@@ -53,13 +53,14 @@ router.post('/register', (req, res) => {
 });
 
 router.get('/login', (req, res) => {
-    res.render('login');
+    res.render('login.html');
 });
 
 router.post('/login',
     passportObject.authenticate('local', {successRedirectUrl:"/",failureRedirectUrl:"/users/login", failureFlash :true}),
     function(req, res) {
-    res.render("./shares");
+        
+    res.render("./shares.html");
 });
 
 router.get('/logout', (req, res) => {

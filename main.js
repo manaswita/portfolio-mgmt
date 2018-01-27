@@ -1,6 +1,5 @@
 var path = require("path");
 var express = require("express");
-var handler = require("express-handlebars");
 var cookieParser = require("cookie-parser");
 var passportObject = require("passport");
 var passportLocal = require("passport-local").Strategy;
@@ -8,6 +7,7 @@ var validatorObject = require("express-validator");
 var bodyParser = require("body-parser");
 var flashObject = require("connect-flash");
 var sessionObject = require("express-session");
+
 var mongo = require("mongodb");
 var mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost:27017/portfolio-db");
@@ -22,11 +22,19 @@ var common = require('./routes/common');
 
 var app = express();
 
-app.set("views", path.join(__dirname, 'views/layouts'))
-app.engine("handlebars", handler({defaultLayout:'index'}));
-app.set('view engine', "handlebars");
+//Define the port and create an object of express class
+app.set('view engine', "ejs");
+app.set("views", path.join(__dirname, 'client/views'))
+
+// define the view engine and set the path for views files
+app.engine('html',require('ejs').renderFile);
+
+// Define the path for the static files like image, css and js files
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
+
 app.use(express.static(path.join(__dirname, 'common')));
+app.use(express.static('./client'));
 app.use(sessionObject({secret:'p@ssw0rd',resave:true}));
 app.use(passportObject.initialize());
 app.use(passportObject.session());
