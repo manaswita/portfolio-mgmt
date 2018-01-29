@@ -1,4 +1,4 @@
-angular.module('portfolioController', [])
+angular.module('portfolioController', ['ngGrid'])
 
 	// inject the sharesService factory into our controller
 	.controller('sharesController', ['$scope','$http','Shares', function($scope, $http, Shares) {
@@ -25,18 +25,18 @@ angular.module('portfolioController', [])
                     $scope.loading = false;
 
                     $scope.sharesGridOptions = { data: data,
-                          enableRowSelection: false,
-                          enableCellEditOnFocus: true,
-                          multiSelect: false,
-                          columnDefs: [
-                          {field: 'symbol', displayName: 'SYMBOL'},
-                          {field: 'exchangeName', displayName: 'EXCHANGE NAME'},
-                          {field: 'shortName', displayName: 'SHORT NAME'},
-                          {field: 'regularMarketPrice', displayName: 'REGULAR MARKET PRICE'},
-                          {field: 'currency', displayName: 'CURRENCY'}
-                          ]
-                        };
-                });
+                      columnDefs: [
+                      {field: 'symbol', displayName: 'SYMBOL'},
+                      {field: 'exchangeName', displayName: 'EXCHANGE NAME'},
+                      {field: 'shortName', displayName: 'SHORT NAME'},
+                      {field: 'regularMarketPrice', displayName: 'REGULAR MARKET PRICE'},
+                      {field: 'currency', displayName: 'CURRENCY'}
+                      ]
+                    };
+                })
+                .error(function(data, status, headers, config) {
+                     $scope.shares = data;
+                  });
                 }
 
             };
